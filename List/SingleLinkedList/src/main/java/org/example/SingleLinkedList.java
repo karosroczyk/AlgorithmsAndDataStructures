@@ -1,19 +1,11 @@
 package org.example;
 
+import java.util.ArrayList;
+
 public class SingleLinkedList {
     Element head;
-
     //O(n)
-    void iterate(){
-        Element head_tmp = head;
-        while(head_tmp != null){
-            System.out.print(head_tmp.value);
-            head_tmp = head_tmp.next;
-        }
-        System.out.println();
-    }
-    //O(n)
-    int count(){
+    public int size(){
         Element head_tmp = head;
         int counter = 0;
         while(head_tmp != null){
@@ -22,34 +14,35 @@ public class SingleLinkedList {
         }
         return counter;
     }
-
-    // front
-    //O(1)
-    Element getElementFront() {
+    /** Gets the first element.
+     * @return First element
+     * Time complexity: O(1)
+     */
+    Element getFirst() {
         return head; }
     // O(1)
-    void addElementFront(int value){
+    public void addFirst(int value){
         Element element = new Element();
         element.value = value;
         element.next = head;
         head = element;
     }
     // O(1)
-    void eraseElementFront(){
+    void removeFirst(){
         if(head == null) return;
         head = head.next;
     }
 
     //back
     // O(n)
-    Element getElementBack() {
+    Element getLast() {
         Element head_tmp = head;
         while(head_tmp.next != null)
             head_tmp = head_tmp.next;
         return head_tmp;
     }
     // O(n)
-    void addElementBack(int value){
+    public void addLast(int value){
         Element head_tmp = head;
         Element element = new Element();
         element.value = value;
@@ -67,7 +60,7 @@ public class SingleLinkedList {
         head_tmp.next = element;
     }
     // O(n)
-    void eraseElementBack(){
+    void removeLast(){
         if(head == null)
             return;
         if (head.next == null){
@@ -80,15 +73,14 @@ public class SingleLinkedList {
         }
         head_tmp.next = null;
     }
-
     //other
     //O(n)
-    void insertAfter(int value, int index){
-        if(index >= this.count())
+    void linkAfter(int value, int index){
+        if(index >= this.size())
             return;
 
-        if(index == this.count()-1) {
-            this.addElementBack(value);
+        if(index == this.size()-1) {
+            this.addLast(value);
             return;
         }
 
@@ -105,23 +97,12 @@ public class SingleLinkedList {
         head_tmp.next = element;
     }
     //O(n)
-    void deleteElement(Element element){
-        if (head == null) return;
-        if(head == element) this.eraseElementFront();
-
-        Element head_tmp = head;
-        while(head_tmp.next != element){
-            head_tmp = head_tmp.next;
-        }
-        head_tmp.next = element.next;
-    }
-    //O(n)
-    void insertBefore(int value, int index){
-        if(index >= this.count())
+    void linkBeforeIndex(int value, int index){
+        if(index >= this.size())
             return;
 
         if(index == 0) {
-            this.addElementFront(value);
+            this.addFirst(value);
             return;
         }
 
@@ -137,19 +118,19 @@ public class SingleLinkedList {
         element.next = head_tmp.next;
         head_tmp.next = element;
     }
-    //O(n)
-    void insertBeforeElement(int to_insert, int elem){
+    //O(n) Inserts element e before non-null Node succ.
+    void linkBefore(int e, int elem){
         if (head == null) return;
 
         if (head.value == elem){
-            addElementFront(to_insert);
+            addFirst(e);
             return;
         }
         Element head_tmp = head;
         while(head_tmp.next != null){
             if (head_tmp.next.value == elem){
                 Element element = new Element();
-                element.value = to_insert;
+                element.value = e;
                 element.next = head_tmp.next;
                 head_tmp.next = element;
                 return;
@@ -157,21 +138,23 @@ public class SingleLinkedList {
             head_tmp = head_tmp.next;
         }
     }
-    //O(n) - łączenie dwóch list
-    void concatenateList(SingleLinkedList lista){
-        Element head_tmp = head;
+    //O(n)
+    void unlink(Element element){
+        if (head == null) return;
+        if(head == element) this.removeFirst();
 
-        while(head_tmp.next != null){
+        Element head_tmp = head;
+        while(head_tmp.next != element){
             head_tmp = head_tmp.next;
         }
-
-        head_tmp.next = lista.head;
+        head_tmp.next = element.next;
     }
+    boolean contains(Object o){return true;}
 
     //complex operations
     //zamiana sąsiednich elementów
-    void swapElements(int index){
-        if(index >= this.count()-1)
+    public void swapElements(int index){
+        if(index >= this.size()-1)
             throw new IllegalArgumentException("No way to swap: argument too big");
         Element head_tmp = head;
         Element a  = head_tmp;
@@ -198,12 +181,23 @@ public class SingleLinkedList {
         b.next = d;
         c.next = b;
     }
-    //przestawianie i-tego elementu na początek
-    void elementToFront(int index){}
-    //przestawianie i-tego elementu na koniec
-    void elementToBack(int index){}
-    //wstawianie listy za i-ty element
-    void insertListAfterElement(SingleLinkedList lista, int index){}
-    //odwracanie listy
-    void swapList(){}
+    //O(n) - łączenie dwóch list
+    public void concatenateList(SingleLinkedList lista){
+        Element head_tmp = head;
+
+        while(head_tmp.next != null){
+            head_tmp = head_tmp.next;
+        }
+
+        head_tmp.next = lista.head;
+    }
+    //O(n)
+    public void iterate(){
+        Element head_tmp = head;
+        while(head_tmp != null){
+            System.out.print(head_tmp.value);
+            head_tmp = head_tmp.next;
+        }
+        System.out.println();
+    }
 }
