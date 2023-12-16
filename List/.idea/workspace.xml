@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="22c58820-7caf-4bb2-953a-03974e460157" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/SingleLinkedList/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/SingleLinkedList/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SingleLinkedList/src/main/java/org/example/Element.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SingleLinkedList/src/main/java/org/example/SingleLinkedList.java" beforeDir="false" afterPath="$PROJECT_DIR$/SingleLinkedList/src/main/java/org/example/SingleLinkedList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SingleLinkedList/src/test/java/com/SingleLinkedList/SingleLinkedListTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/SingleLinkedList/src/test/java/com/SingleLinkedList/SingleLinkedListTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SingleLinkedList/target/classes/org/example/Element.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SingleLinkedList/target/classes/org/example/SingleLinkedList.class" beforeDir="false" afterPath="$PROJECT_DIR$/SingleLinkedList/target/classes/org/example/SingleLinkedList.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SingleLinkedList/target/test-classes/com/SingleLinkedList/SingleLinkedListTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/SingleLinkedList/target/test-classes/com/SingleLinkedList/SingleLinkedListTest.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2ZdqIwNbGI1ORieLZzgktAJI9KD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Lenovo/Desktop/AlgorithmsAndDataStructures/List"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="22c58820-7caf-4bb2-953a-03974e460157" name="Changes" comment="" />
+      <created>1702762228216</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702762228216</updated>
+    </task>
+    <servers />
+  </component>
+</project>

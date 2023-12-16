@@ -1,10 +1,8 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-public class SingleLinkedList<E> {
+public class SingleLinkedListWithTail<E> {
 
     private static class Element<E> {
         Element<E> next;
@@ -15,7 +13,7 @@ public class SingleLinkedList<E> {
             this.value = value;
         }
     }
-    Element<E> head;
+    Element<E> head, tail;
     /**
      * O(n)
      * @return The number of elements in the list.
@@ -60,14 +58,11 @@ public class SingleLinkedList<E> {
     /** Gets the last element.
      * @return The tail of the list.
      * @throws NoSuchElementException if the list is empty.
-     * Time complexity: O(n)
+     * Time complexity: O(1)
      */
     public E getLast() {
         if(isEmpty()) throw new NoSuchElementException();
-        Element<E> head_tmp = head;
-        while(head_tmp.next != null)
-            head_tmp = head_tmp.next;
-        return head_tmp.value;
+        return tail.value;
     }
     /**
      * Inserts the given element at the end of this list.
@@ -76,11 +71,12 @@ public class SingleLinkedList<E> {
      * @param value An element to insert into the list.
      */
     public void addLast(E value){
-        Element<E> head_tmp = head;
+        Element<E> tail_tmp = head;
         Element<E> element = new Element<E>(null, value);
 
-        if(head_tmp == null) {
+        if(tail_tmp == null) {
             head = element;
+            tail = element;
             return;
         }
 
