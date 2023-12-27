@@ -1,31 +1,27 @@
 package org.example;
 
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-public class SingleLinkedListWithTail<E> {
-
+public class MyLinkedList<E> {
     private static class Element<E> {
-        Element<E> next;
+        Element<E> next, prev;
         E value;
 
-        public Element(Element<E> next, E value){
+        public Element(Element<E> next, Element<E> prev, E value){
             this.next = next;
+            this.prev = prev;
             this.value = value;
         }
     }
     Element<E> head, tail;
+    int size;
     /**
-     * O(n)
+     * O(1)
      * @return The number of elements in the list.
      */
     public int size(){
-        Element<E> head_tmp = head;
-        int counter = 0;
-        while(head_tmp != null){
-            counter++;
-            head_tmp = head_tmp.next;
-        }
-        return counter;
+        return size;
     }
     /** Gets the first element.
      * @return The head of the list.
@@ -43,11 +39,16 @@ public class SingleLinkedListWithTail<E> {
      * @param value An element to insert into the list.
      */
     public void addFirst(E value){
-        Element<E> elementToAdd = new Element<E>(head, value);
-        if(isEmpty())
-            tail = elementToAdd;
+        Element<E> head_tmp = head;
+        Element<E> element = new Element<E>(head, null, value);
+        head = element;
+        size++;
 
-        head = elementToAdd;
+        if(isEmpty()) {
+            tail = element;
+            return;
+        }
+        head_tmp.prev = element;
     }
     /**
      * Removes the first element from the list.
@@ -57,8 +58,13 @@ public class SingleLinkedListWithTail<E> {
      */
     public void removeFirst(){
         if(isEmpty()) throw new NoSuchElementException();
-        if(head.next == null) tail = null;
+        size--;
+        if(head.next == null && tail.next == null) {
+            clear();
+            return;
+        }
         head = head.next;
+        head.prev = null;
     }
     /** Gets the last element.
      * @return The tail of the list.
@@ -77,41 +83,38 @@ public class SingleLinkedListWithTail<E> {
      */
     public void addLast(E value){
         Element<E> tail_tmp = tail;
-        Element<E> element = new Element<E>(null, value);
+        Element<E> element = new Element<E>(null, tail, value);
+        tail = element;
+        size++;
 
         if(isEmpty()) {
             head = element;
-            tail = element;
             return;
         }
 
         tail_tmp.next = element;
-        tail = element;
     }
     /**
      * Removes the first element from the list.
-     *    // O(n)
+     *    // O(1)
      *    //unlinkLast
      * @throws NoSuchElementException if the list is empty.
      */
     public void removeLast(){
         if(isEmpty()) throw new NoSuchElementException();
-        if (head.next == null){
+        size--;
+        if (head.next == null && head.prev == null){
             clear();
             return;
         }
-        Element<E> head_tmp = head;
-        while(head_tmp.next.next != null){
-            head_tmp = head_tmp.next;
-        }
-        tail = head_tmp;
-        head_tmp.next = null;
+        tail = tail.prev;
+        tail.next = null;
     }
 
     //----------------------------------------------------------------
     /**
      * Returns element at given index.
-     *    // O(n)
+     *    // O(n/2) ??
      * @param index Index of element which should be returned.
      * @throws NoSuchElementException if the list is empty.
      * @throws IndexOutOfBoundsException if index is out of range (0, size()).
@@ -122,11 +125,21 @@ public class SingleLinkedListWithTail<E> {
             throw new IndexOutOfBoundsException();
 
         Element<E> head_tmp = head;
-        while(index-- != 0){
-            head_tmp = head_tmp.next;
+        Element<E> tail_tmp = tail;
+        int count = size()/2;
+        if(index <= count){
+            while(index-- > 0){
+                head_tmp = head_tmp.next;
+            }
+            return head_tmp.value;
+        }else{
+            while(index-- > count){
+                tail_tmp = tail_tmp.prev;
+            }
+            return tail_tmp.value;
         }
 
-        return head_tmp.value;
+
     }
     /**
      * Removes all elements of list.
@@ -135,6 +148,7 @@ public class SingleLinkedListWithTail<E> {
     public void clear(){
         head = null;
         tail = null;
+        size = 0;
     }
     /**
      * Check if list is empty.
@@ -142,9 +156,13 @@ public class SingleLinkedListWithTail<E> {
      * @return Boolean depending on whether list is empty.
      */
     public boolean isEmpty(){
-        return head == null;
+        return (head == null && tail == null);
     }
-
+    /**
+     * Iterate over list.
+     * O(n)
+     * @return String in format [elem1, elem2, ..., elemn].
+     */
     public String iterate(){
         Element<E> head_tmp = head;
         String output = "[";
