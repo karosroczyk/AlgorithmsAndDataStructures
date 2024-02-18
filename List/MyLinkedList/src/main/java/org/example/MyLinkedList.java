@@ -41,14 +41,15 @@ public class MyLinkedList<E> {
     public void addFirst(E value){
         Element<E> head_tmp = head;
         Element<E> element = new Element<E>(head, null, value);
-        head = element;
-        size++;
+
 
         if(isEmpty()) {
             tail = element;
-            return;
+        }else{
+            head_tmp.prev = element;
         }
-        head_tmp.prev = element;
+        head = element;
+        size++;
     }
     /**
      * Removes the first element from the list.
@@ -84,15 +85,15 @@ public class MyLinkedList<E> {
     public void addLast(E value){
         Element<E> tail_tmp = tail;
         Element<E> element = new Element<E>(null, tail, value);
-        tail = element;
-        size++;
 
         if(isEmpty()) {
             head = element;
-            return;
+        }else{
+            tail_tmp.next = element;
         }
 
-        tail_tmp.next = element;
+        tail = element;
+        size++;
     }
     /**
      * Removes the first element from the list.
