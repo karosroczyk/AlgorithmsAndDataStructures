@@ -371,6 +371,22 @@ public class LinkedListQueueTest {
         assertEquals(2, linkedListQueue.getFirst());
         assertEquals(1, linkedListQueue.getLast());
     }
+
+    @Test
+    public void linkedListDequeTest(){
+        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
+        assertTrue(linkedListQueue.isEmpty());
+
+        linkedListQueue.offerFirst(1);
+        linkedListQueue.offerFirst(4);
+        linkedListQueue.offerLast(2);
+        assertEquals(4, linkedListQueue.peekFirst());
+        assertEquals(2, linkedListQueue.peekLast());
+
+        linkedListQueue.pollLast();
+        assertEquals(4, linkedListQueue.peekFirst());
+        assertEquals(1, linkedListQueue.peekLast());
+    }
 static Stream<Arguments> LinkedListQueueData() {
     return Stream.of(
             arguments((Object) new Integer[]{1, 2, 3, 4})

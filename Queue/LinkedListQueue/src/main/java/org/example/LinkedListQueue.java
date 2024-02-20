@@ -103,11 +103,8 @@ public class LinkedListQueue<E> {
     /**
      * Removes the first element from the list.
      *    // O(1)
-     *    //unlinkLast
-     * @throws NoSuchElementException if the list is empty.
      */
-    public void removeLast(){
-        if(isEmpty()) throw new NoSuchElementException();
+    public void unlinkLast(){
         size--;
         if (head.next == null && head.prev == null){
             clear();
@@ -115,6 +112,16 @@ public class LinkedListQueue<E> {
         }
         tail = tail.prev;
         tail.next = null;
+    }
+    /**
+     * Removes the first element from the list.
+     *    // O(1)
+     *    //unlinkLast
+     * @throws NoSuchElementException if the list is empty.
+     */
+    public void removeLast(){
+        if(isEmpty()) throw new NoSuchElementException();
+        unlinkLast();
     }
 
     //--------------------Queue Interface Implementation--------------
@@ -134,7 +141,7 @@ public class LinkedListQueue<E> {
      */
     public E peek(){
         final Element<E> e = head;
-        return (e == null) ? null : head.value;
+        return (e == null) ? null : e.value;
     }
 
     /** Add element at the end of queue.
@@ -161,7 +168,7 @@ public class LinkedListQueue<E> {
      * Time complexity: O(1)
      */
     public E remove(){
-        E value = getFirst();
+        final E value = getFirst();
         removeFirst();
         return value;
     }
@@ -171,12 +178,70 @@ public class LinkedListQueue<E> {
      * Time complexity: O(1)
      */
     public E poll(){
-        Element<E> e = head;
+        final Element<E> e = head;
         if(head == null) return null;
         unlinkFirst();
         return e.value;
     }
 
+    //--------------------Deque Interface Implementation--------------
+    /** Add element at the beginning of the queue.
+     * @return Return false in case of failure to add element.
+     * Time complexity: O(1)
+     */
+    public boolean offerFirst(E element){
+        addFirst(element);
+        return true;
+    }
+
+    /** Add element at the end of queue.
+     * @return Return false in case of failure to add element.
+     * Time complexity: O(1)
+     */
+    public boolean offerLast(E element){
+        addLast(element);
+        return true;
+    }
+
+    /** Removes element from the beginning of the queue.
+     * @return The head of the queue or null in case of empty queue.
+     * Time complexity: O(1)
+     */
+    public E pollFirst(){
+        final Element<E> e = head;
+        if(head == null) return null;
+        unlinkFirst();
+        return e.value;
+    }
+
+    /** Removes element from the end of the queue.
+     * @return The tail of the queue or null in case of empty queue.
+     * Time complexity: O(1)
+     */
+    public E pollLast(){
+        final Element<E> e = tail;
+        if(tail == null) return null;
+        unlinkLast();
+        return e.value;
+    }
+
+    /** Gets element from the beginning of the queue.
+     * @return The head of the queue or null in case of empty queue.
+     * Time complexity: O(1)
+     */
+    public E peekFirst(){
+        final Element<E> e = head;
+        return (e == null) ? null : e.value;
+    }
+
+    /** Gets element from the end of the queue.
+     * @return The tail of the queue or null in case of empty queue.
+     * Time complexity: O(1)
+     */
+    public E peekLast(){
+        final Element<E> e = tail;
+        return (e == null) ? null : e.value;
+    }
     //--------------------Stack Interface Implementation--------------
 
     /** Add element to the beginning of the stack.
