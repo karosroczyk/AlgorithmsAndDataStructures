@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
 public class LinkedListQueue<E> {
     private static class Element<E> {
@@ -52,11 +53,8 @@ public class LinkedListQueue<E> {
     /**
      * Removes the first element from the list.
      *    // O(1)
-     *    //unlinkFirst
-     * @throws NoSuchElementException if the list is empty.
      */
-    public void removeFirst(){
-        if(isEmpty()) throw new NoSuchElementException();
+    public void unlinkFirst(){
         size--;
         if(head.next == null && tail.next == null) {
             clear();
@@ -64,6 +62,15 @@ public class LinkedListQueue<E> {
         }
         head = head.next;
         head.prev = null;
+    }
+    /**
+     * Removes the first element from the list.
+     *    // O(1)
+     * @throws NoSuchElementException if the list is empty.
+     */
+    public void removeFirst(){
+        if(isEmpty()) throw new NoSuchElementException();
+        unlinkFirst();
     }
     /** Gets the last element.
      * @return The tail of the list.
@@ -111,27 +118,88 @@ public class LinkedListQueue<E> {
     }
 
     //--------------------Queue Interface Implementation--------------
-    public E element() throws NoSuchElementException { return getFirst(); }
-    public E peek(){ return getFirst(); }
+
+    /** Gets the head of the queue.
+     * @return The head of the queue.
+     * @throws NoSuchElementException if the queue is empty.
+     * Time complexity: O(1)
+     */
+    public E element(){
+        return getFirst();
+    }
+
+    /** Gets the head of the queue.
+     * @return The head of the queue or null in case of empty queue.
+     * Time complexity: O(1)
+     */
+    public E peek(){
+        final Element<E> e = head;
+        return (e == null) ? null : head.value;
+    }
+
+    /** Add element at the end of queue.
+     * @return Return false in case of failure to add element.
+     * @throws IllegalStateException if addition would violate capacity restrictions.
+     * Time complexity: O(1)
+     */
     public boolean add(E element){
         addLast(element);
         return true;
     }
+
+    /** Add element at the end of queue.
+     * @return Return false in case of failure to add element.
+     * Time complexity: O(1)
+     */
     public boolean offer(E element){
-        addLast(element);
-        return true;
+        return add(element);
     }
+
+    /** Removes element from the beginning of the queue.
+     * @return The head of the queue.
+     * @throws NoSuchElementException if the queue is empty.
+     * Time complexity: O(1)
+     */
     public E remove(){
-        E tmp = getFirst();
+        E value = getFirst();
         removeFirst();
-        return tmp;
+        return value;
     }
+
+    /** Removes element from the beginning of the queue.
+     * @return The head of the queue or null in case of empty queue.
+     * Time complexity: O(1)
+     */
     public E poll(){
-        E tmp = getFirst();
-        removeFirst();
-        return tmp;
+        Element<E> e = head;
+        if(head == null) return null;
+        unlinkFirst();
+        return e.value;
     }
+
+    //--------------------Stack Interface Implementation--------------
+
+    /** Add element to the beginning of the stack.
+     * @throws NoSuchElementException if the stack is empty.
+     * Time complexity: O(1)
+     */
+    public void push(E element){
+        addFirst(element);
+    }
+
+    /** Removes element from the beginning of the stack.
+     * @return Return first element of the stack.
+     * @throws NoSuchElementException if the stack is empty.
+     * Time complexity: O(1)
+     */
+    public E pop(){
+        E first = getFirst();
+        removeFirst();
+        return first;
+    }
+
     //----------------------------------------------------------------
+
     /**
      * Returns element at given index.
      *    // O(n/2) ??

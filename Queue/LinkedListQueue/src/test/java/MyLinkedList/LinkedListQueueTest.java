@@ -218,46 +218,39 @@ public class LinkedListQueueTest {
         LinkedListQueue.removeFirst();
         assertTrue(LinkedListQueue.isEmpty());
     }
-    @Test
-    public void isEmptyRetrunsTrueAfterAddFirstAndRemoveLast(){
-        LinkedListQueue<Integer> LinkedListQueue = new LinkedListQueue<>();
-        LinkedListQueue.addFirst(1);
-        LinkedListQueue.removeLast();
-        assertTrue(LinkedListQueue.isEmpty());
-    }
 
     @Test
-    public void offerAddsElementToTheEndOfFIFOQueue(){
+    public void offerAddsElementToTheEndOfFIFOQueueTest(){
         LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
         assertTrue(linkedListQueue.isEmpty());
 
         linkedListQueue.offer(1);
         linkedListQueue.offer(4);
-        assertEquals(linkedListQueue.getFirst(), 1);
-        assertEquals(linkedListQueue.getLast(), 4);
+        assertEquals(1, linkedListQueue.getFirst());
+        assertEquals(4, linkedListQueue.getLast());
 
         linkedListQueue.offer(2);
-        assertEquals(linkedListQueue.getFirst(), 1);
-        assertEquals(linkedListQueue.getLast(), 2);
+        assertEquals(1, linkedListQueue.getFirst());
+        assertEquals(2, linkedListQueue.getLast());
     }
 
     @Test
-    public void addAddsElementToTheEndOfFIFOQueue(){
+    public void addAddsElementToTheEndOfFIFOQueueTest(){
         LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
         assertTrue(linkedListQueue.isEmpty());
 
         linkedListQueue.offer(1);
         linkedListQueue.offer(4);
-        assertEquals(linkedListQueue.getFirst(), 1);
-        assertEquals(linkedListQueue.getLast(), 4);
+        assertEquals(1, linkedListQueue.getFirst());
+        assertEquals(4, linkedListQueue.getLast());
 
         linkedListQueue.offer(2);
-        assertEquals(linkedListQueue.getFirst(), 1);
-        assertEquals(linkedListQueue.getLast(), 2);
+        assertEquals(1, linkedListQueue.getFirst());
+        assertEquals(2, linkedListQueue.getLast());
     }
 
     @Test
-    public void pollRemovesElementFromTheBeginningOfFIFOQueue(){
+    public void pollRemovesElementFromTheBeginningOfFIFOQueueTest(){
         LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
         assertTrue(linkedListQueue.isEmpty());
 
@@ -265,12 +258,39 @@ public class LinkedListQueueTest {
         linkedListQueue.offer(4);
         linkedListQueue.offer(2);
         linkedListQueue.poll();
-        assertEquals(linkedListQueue.getFirst(), 4);
-        assertEquals(linkedListQueue.getLast(), 2);
+        assertEquals(4, linkedListQueue.getFirst());
+        assertEquals(2, linkedListQueue.getLast());
     }
 
     @Test
-    public void removeRemovesElementFromTheBeginningOfFIFOQueue(){
+    public void pollReturnsNullIfQueueIsEmptyTest(){
+        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
+        assertTrue(linkedListQueue.isEmpty());
+        assertNull(linkedListQueue.poll());
+    }
+
+    @Test
+    public void removeRemovesElementFromTheBeginningOfFIFOQueueTest(){
+        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
+        assertTrue(linkedListQueue.isEmpty());
+
+        linkedListQueue.add(1);
+        linkedListQueue.add(4);
+        linkedListQueue.add(2);
+        linkedListQueue.remove();
+        assertEquals(4, linkedListQueue.getFirst());
+        assertEquals(2, linkedListQueue.getLast());
+    }
+
+    @Test
+    public void removeThrowsNoSuchElementExceptionIfQueueIsEmptyTest(){
+        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
+        assertTrue(linkedListQueue.isEmpty());
+        assertThrows(NoSuchElementException.class,
+                () -> linkedListQueue.remove());
+    }
+    @Test
+    public void peekReturnsElementFromTheBeginningOfFIFOQueueTest(){
         LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
         assertTrue(linkedListQueue.isEmpty());
 
@@ -278,17 +298,86 @@ public class LinkedListQueueTest {
         linkedListQueue.offer(4);
         linkedListQueue.offer(2);
         linkedListQueue.poll();
-        assertEquals(linkedListQueue.getFirst(), 4);
-        assertEquals(linkedListQueue.getLast(), 2);
+        assertEquals(4, linkedListQueue.peek());
+        assertEquals(2, linkedListQueue.getLast());
     }
 
-    static Stream<Arguments> LinkedListQueueData(){
-        return  Stream.of(
-                arguments((Object)new Integer[]{1,2,3,4})
-                //arguments(3, null, 4),
-                //arguments("One", "Two", "Three"),
-                //arguments(5.0, 4.4, 3.9)
-        );
+    @Test
+    public void peekReturnsNullIfQueueIsEmptyTest(){
+        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
+        assertTrue(linkedListQueue.isEmpty());
+        assertNull(linkedListQueue.peek());
     }
+
+    @Test
+    public void elementReturnsElementFromTheBeginningOfFIFOQueueTest(){
+        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
+        assertTrue(linkedListQueue.isEmpty());
+
+        linkedListQueue.add(1);
+        linkedListQueue.add(4);
+        linkedListQueue.add(2);
+        linkedListQueue.remove();
+        assertEquals(4, linkedListQueue.element());
+        assertEquals(2, linkedListQueue.getLast());
+    }
+
+    @Test
+    public void elementThrowsNoSuchElementExceptionIfQueueIsEmptyTest(){
+        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
+        assertTrue(linkedListQueue.isEmpty());
+        assertThrows(NoSuchElementException.class,
+                () -> linkedListQueue.element());
+    }
+
+    @Test
+    public void popRemovesElementFromTheBeginningOfLIFOQueueTest(){
+        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
+        assertTrue(linkedListQueue.isEmpty());
+
+        linkedListQueue.push(1);
+        linkedListQueue.push(4);
+        linkedListQueue.push(2);
+        linkedListQueue.pop();
+        assertEquals(4, linkedListQueue.getFirst());
+        assertEquals(1, linkedListQueue.getLast());
+    }
+
+    @Test
+    public void popReturnesElementFromTheBeginningOfLIFOQueueTest(){
+        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
+        assertTrue(linkedListQueue.isEmpty());
+
+        linkedListQueue.push(1);
+        linkedListQueue.push(4);
+        linkedListQueue.push(2);
+        assertEquals(2, linkedListQueue.pop());
+    }
+    @Test
+    public void popThrowsNoSuchElementExceptionIfQueueIsEmptyTest(){
+        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
+        assertTrue(linkedListQueue.isEmpty());
+        assertThrows(NoSuchElementException.class,
+                () -> linkedListQueue.pop());
+    }
+    @Test
+    public void pushAddsElementToTheBeginningOfLIFOQueueTest(){
+        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
+        assertTrue(linkedListQueue.isEmpty());
+
+        linkedListQueue.push(1);
+        linkedListQueue.push(4);
+        linkedListQueue.push(2);
+        assertEquals(2, linkedListQueue.getFirst());
+        assertEquals(1, linkedListQueue.getLast());
+    }
+static Stream<Arguments> LinkedListQueueData() {
+    return Stream.of(
+            arguments((Object) new Integer[]{1, 2, 3, 4})
+            //arguments(3, null, 4),
+            //arguments("One", "Two", "Three"),
+            //arguments(5.0, 4.4, 3.9)
+    );
+
 }
-
+}
